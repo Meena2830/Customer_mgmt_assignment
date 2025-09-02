@@ -1,31 +1,11 @@
 {
   "version": 2,
-  "projects": [
-    {
-      "name": "customer-frontend",
-      "rootDirectory": "client",
-      "buildCommand": "npm run build",
-      "outputDirectory": "dist",
-      "devCommand": "npm run dev",
-      "framework": "vite"
-    },
-    {
-      "name": "customer-backend",
-      "rootDirectory": "server",
-      "buildCommand": "npm install",
-      "devCommand": "npm run dev",
-      "outputDirectory": "",
-      "framework": "node"
-    }
+  "builds": [
+    { "src": "client/package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } },
+    { "src": "server/**/*.js", "use": "@vercel/node" }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/$1"
-    }
+    { "src": "/api/(.*)", "dest": "/server/$1" },
+    { "src": "/(.*)", "dest": "/client/$1" }
   ]
 }
